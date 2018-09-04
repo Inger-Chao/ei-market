@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /market
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/market
+      username: root
+      password: 123456
