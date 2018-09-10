@@ -1,14 +1,15 @@
 <template>
 	<div class="searchBar" >
-		<div class="demo-input-suffix" align="center">
+    <div class="demo-input-suffix" align="center">
 			<span>
-			<el-input
- 			    placeholder="请输入你想要搜索的宝贝..."
-		    	v-model="input_search"
-		    	@keyup.enter.native="submit">
-			</el-input>
+
+          <el-input
+            placeholder="请输入你想要搜索的宝贝..."
+            v-model="input_search"
+            @keyup.enter.native="submit">
+          </el-input>
 		</span>
-  		</div>
+    </div>
 	</div>
 </template>
 <script>
@@ -19,6 +20,7 @@
       }
     }, methods: {
       submit() {
+        this.$router.push( { name:'find-key' , params:{ key : this.input_search } })
         alert("click " + this.input_search)
       }
     }

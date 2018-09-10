@@ -11,31 +11,57 @@ Vue.use(VueRouter);
 
 //1. 创建组件
 
-import Home from './components/home.vue';
-import User from './components/User.vue';
+import Home from './components/home/Home.vue';
 import Content from './components/Content.vue';
-import UserAdd from './components/User/UserAdd.vue';
-import UserList from './components/User/UserList.vue';
+import GoodsList from './components/goods/GoodsList.vue';
+import Profiles from './components/profiles/Profiles.vue';
+import GoodsAddPage from  './components/goods/GoodsAddPage.vue'
 
 //2.配置路由
 
 const routes = [
-	{ 
-		path: '/user', 
-		component: User,
-		children:[
-			{
-				path:'useradd',component:UserAdd
-			},
-			{
-				path:'userlist',component:UserList
-			}
-		]
-	},
-	{ path: '/home', component: Home},
-	{ path: '/content/:aid', component: Content},//动态路由
-	{ path: '*', redirect:'home'}, //默认跳转路由为Home
 
+	{
+	  path: '/',
+    component: Home,
+    children:[
+      {
+        name: 'type',
+        path:'type/:typeName' ,
+        component:GoodsList,
+        //如果 props 是一个对象，它会被按原样设置为组件属性。当 props 是静态的时候有用。
+        props: { newsletterPopup: false }
+      },{
+	      name:'find-key',
+        path:':key',
+        component:GoodsList,
+      },
+      {
+        name: 'default-type',
+        path: '/',
+        component : GoodsList
+      }
+    ]
+  },
+
+  {
+    name:'profile',
+    path:'/user/my',
+    component: Profiles,
+    children :[
+      {
+        name:'personal-info',
+        path:'info'
+      }
+    ]
+  },
+  {
+    name : 'upload',
+    path:'/goods/add',
+    component : GoodsAddPage
+  },
+	{ path: '/content/:aid', component: Content},//动态路由
+  { path : '*' , redirect:'/'}
 ]
 
 //3.实例化VueRouter

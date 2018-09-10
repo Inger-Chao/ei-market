@@ -23,7 +23,7 @@ public class TypeController {
     @Autowired
     private TypeRepository typeRepository;
 
-    @GetMapping("/{type}/{page}")
+    @GetMapping("/goods/{type}/{page}")
     public Result<List<Goods>> getGoodsListByType(@PathVariable("type") String type,
                                                   @PathVariable("page") int page) {
         List<Goods> goods = typeRepository.findGoods(type, PageRequest.of(page,12));

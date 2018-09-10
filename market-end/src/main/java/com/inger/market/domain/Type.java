@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.inger.market.utils.TypeSerialize;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -16,18 +17,19 @@ import java.util.Set;
                 @ConstructorResult(
                         targetClass = Goods.class,
                         columns = {
-                                @ColumnResult(name = "name", type = String.class),
-                                @ColumnResult(name = "price", type = Float.class),
-                                @ColumnResult(name = "describe", type = String.class),
+                                @ColumnResult(name = "goods.name", type = String.class),
+                                @ColumnResult(name = "goods.price", type = Float.class),
+                                @ColumnResult(name = "goods.create_time", type = String.class),
+                                @ColumnResult(name = "goods.img_url", type = String.class),
                         }
                 )
         }
 )
 @NamedNativeQuery(
         name = "Type.findGoods",
-        query = "SELECT goods.name,goods.price,goods.describe " +
-        "from  goods,type " +
-        "WHERE type_id = type.id and type.name like :typeName",
+        query = "SELECT goods.name,goods.price,goods.create_time,goods.img_url " +
+                "from  goods,type " +
+                "WHERE type_id = type.id and type.name like concat('%',:typeName,'%') ",
         resultSetMapping = "GoodsSimpleInfo"
 )
 @JsonSerialize(using = TypeSerialize.class)
@@ -42,9 +44,6 @@ public class Type {
     private String name;
 
     private Integer number;
-
-    @OneToMany(mappedBy = "type")
-    private Set<Goods> goods;
 
     public Type() {
     }
@@ -61,13 +60,6 @@ public class Type {
         this.id = id;
     }
 
-    public Set<Goods> getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Set<Goods> goods) {
-        this.goods = goods;
-    }
 
     public String getName() {
         return name;

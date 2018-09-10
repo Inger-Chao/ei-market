@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -41,6 +41,48 @@ public class GoodsController {
         Integer typeId = typeRepository.findByName(type).getId();
         return ResultUtil.success(ResultEnum.GET_GOODS_COUNT,
                 goodsRepository.countByTypeId(typeId));
+    }
+
+    @GetMapping(value = "/search/{key}/{page}")
+    public Result<List<Goods>> searchGoodsByKey(@PathVariable("key") String key,
+                                                @PathVariable("page") int page){
+
+        Pageable pageable = PageRequest.of(page, 12);
+        Page<Goods> goods =  goodsRepository.findByNameLikeAndAndDescription(key,pageable);
+        return ResultUtil.success(ResultEnum.GET_GOODS_BY_KEY,goods.getContent());
+    }
+
+    @GetMapping(value = "/goods/user/{userId}")
+    public Result<List<Goods>> getGoodsListByUserId(@PathVariable("userId") Integer userId){
+        List<Goods> goods = goodsRepository.findByUserId(userId);
+        return ResultUtil.success(ResultEnum.GET_USER_GOODS_LIST,goods);
+    }
+
+
+    @PostMapping(value = "/goods/add")
+    public Result addGoods(@Valid Goods goods){
+        goodsRepository.saveAndFlush(goods);
+        return ResultUtil.success(ResultEnum.ADD_GOODS);
+}
+
+
+    @Transactional
+    @PostMapping(value = "/goods/delete/{id}")
+    public Result deleteGoodsById(@PathVariable("id") Integer id){
+        goodsRepository.deleteById(id);
+        return ResultUtil.success(ResultEnum.DELETE_GOODS);
+    }
+
+    @Transactional
+    @PostMapping(value = "/goods/delete/more")
+    public Result deleteMoreGoods(@RequestParam("goods") String selectGoods){
+        for ( String goodsId : selectGoods.split("&")) {
+            Result result = deleteGoodsById(Integer.parseInt(goodsId));
+            if (!result.getStatus().equals(ResultEnum.DELETE_GOODS.getStatus())) {
+                return result;
+            }
+        }
+        return ResultUtil.success(ResultEnum.DELETE_MORE_GOODS);
     }
 
 }

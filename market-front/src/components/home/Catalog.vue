@@ -8,13 +8,27 @@
         <div
           class="grid-content bg-purple"
           style="padding: 17px;align:center">
-          <div @click="test(item)" v-for="item in catalogs">
-            <el-tag
-              class="el-tag-type"
-              slot="reference">
-              {{item}}
-            </el-tag>
-          </div>
+
+            <div v-for="item in catalogs">
+              <el-tag
+                class="el-tag-type"
+                slot="reference">
+                <router-link
+                  @click="test(item)"
+                  :to="{
+                    name:'type',
+                    params:
+                    {
+                      typeName:item
+                     }
+                    }">
+                {{item}}
+                </router-link>
+              </el-tag>
+            </div>
+          <el-tag class="el-tag-type">
+            <router-link :to="{ name: 'type',params: {typeName : 'all' } }">查看全部</router-link>
+          </el-tag>
         </div>
       </el-col>
       <el-col :span="3">
@@ -25,28 +39,38 @@
         </div>
       </el-col>
     </el-row>
+    <br>
+    <hr><br>
+    <!-- 路由出口，GoodsList更新之后会显示在这里 -->
+    <router-view>
+    </router-view>
+
   </div>
+
 </template>
 
 <script>
   import Axios from 'axios'
   import Api from '../../server/api.js'
+  import GoodsList from '../goods/GoodsList.vue'
 
   export default {
     data() {
       return {
-        catalogs: []
+        catalogs: [],
+        page : 0
       }
     },
     methods: {
       test(name) {
         alert(name)
+        console.log(name)
       },
       InitData() {
         var self = this;
         Axios.get(Api.types(), {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-userSignIn-urlencoded'
           }
         })
           .then(function (response) {
@@ -59,7 +83,9 @@
       },
     }, mounted() {
       this.InitData();
-    }
+    },components:{
+      GoodsList
+    },
   }
 </script>
 
@@ -102,8 +128,11 @@
     float: left;
     cursor: pointer; /*鼠标悬停样式*/
     user-select: none; //用户不可选中文字
+    text-decoration-line: none;
   }
-
+  .el-tag-type:hover{
+    color: #ff5555;
+  }
   .release-goods{
     border: 1px solid #c3c3c3;
     border-radius:10px;

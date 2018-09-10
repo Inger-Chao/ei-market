@@ -9,8 +9,13 @@ spring:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
+    date-format: yyyy-MM-dd
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/market
+      url: jdbc:mysql://localhost:3306/market?useSSL=false
       username: root
       password: 123456
+
+storage:
+  location: upload-dir
+  source: F:/course/firstvue/vuesimple/dist/img/%s.jpg
