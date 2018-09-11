@@ -43,6 +43,14 @@ public class GoodsController {
                 goodsRepository.countByTypeId(typeId));
     }
 
+    @GetMapping(value = "goods/content/{goodsId}")
+    public Result<Goods> getOneGoodsById(@PathVariable("goodsId") Integer goodsId){
+
+        Goods goods = goodsRepository.findById(goodsId).get();
+
+        return ResultUtil.success(ResultEnum.GET_GOODS_DETAIL,goods);
+    }
+
     @GetMapping(value = "/search/{key}/{page}")
     public Result<List<Goods>> searchGoodsByKey(@PathVariable("key") String key,
                                                 @PathVariable("page") int page){
@@ -52,12 +60,20 @@ public class GoodsController {
         return ResultUtil.success(ResultEnum.GET_GOODS_BY_KEY,goods.getContent());
     }
 
+    /* 通过用户 ID 获取用户发布的所有闲置商品 */
     @GetMapping(value = "/goods/user/{userId}")
     public Result<List<Goods>> getGoodsListByUserId(@PathVariable("userId") Integer userId){
         List<Goods> goods = goodsRepository.findByUserId(userId);
         return ResultUtil.success(ResultEnum.GET_USER_GOODS_LIST,goods);
     }
 
+    @PostMapping(value = "/goods/change/status/{goodsId}")
+    public Result changeGoodsStatus(@PathVariable("goodsId") Integer goodsId){
+        Goods goods = goodsRepository.findById(goodsId).get();
+        goods.setStatus((goods.getStatus() == 0)? 1 : 0);
+        goodsRepository.save(goods);
+        return ResultUtil.success(ResultEnum.UPDATE_GOODS);
+    }
 
     @PostMapping(value = "/goods/add")
     public Result addGoods(@Valid Goods goods){

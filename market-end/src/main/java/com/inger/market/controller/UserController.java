@@ -32,12 +32,20 @@ public class UserController {
         return ResultUtil.success(ResultEnum.GET_USER_INFO_LIST,users.getContent());
     }
 
+     // 通过用户名获取用户的所有信息，在用户登录时调用
     @GetMapping(value = "user/info/{username}")
     public Result<User> getUserInfo(@PathVariable("username") String username){
         User user = userRepository.findByUsername(username);
         if (user == null){
             return ResultUtil.error(ResultEnum.USER_MISSED);
         }
+        return ResultUtil.success(ResultEnum.GET_ONE_USER_INFO,user);
+    }
+
+    // 获取用户的所有信息，本项目中的使用：在物品详情页获取卖家信息
+    @GetMapping(value = "user/id/{id}")
+    public Result<User> getUserById(@PathVariable("id") Integer id){
+        User user = userRepository.findById(id).get();
         return ResultUtil.success(ResultEnum.GET_ONE_USER_INFO,user);
     }
 
@@ -74,19 +82,22 @@ public class UserController {
     }
 
     //修改用户个人信息
-    @PostMapping(value = "/user/update")
-    public Result updateUserByName(@Valid User user) {
+    @PostMapping(value = "/user/update/info")
+    public Result updateUserByName( User user) {
 
-        User oldUser = userRepository.findByUsername(user.getUsername());
+        User oldUser = userRepository.findById(user.getId()).get();
 
-        if (null == oldUser){
-            return ResultUtil.error(ResultEnum.USER_MISSED);
-        }
-
-        user.setId(oldUser.getId());
         user.setPassword(oldUser.getPassword());
-        user.setCredit((oldUser.getCredit() + user.getCredit() )/ 2);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
+        return ResultUtil.success(ResultEnum.UPDATE_USER);
+    }
+
+    @Transactional
+    @PostMapping(value = "/user/update/credit/{id}/{credit}")
+    public Result updateUserCredit(@PathVariable("id") Integer id,
+                                   @PathVariable("credit") Float credit){
+
+        userRepository.updateCredit(id,credit);
         return ResultUtil.success(ResultEnum.UPDATE_USER);
     }
 

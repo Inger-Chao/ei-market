@@ -14,11 +14,11 @@
       </el-form-item>
 
       <el-form-item label="确认密码" :label-width="formLabelWidth">
-        <el-input v-model="user.confirm" auto-complete="off"></el-input>
+        <el-input type="password" v-model="user.confirm" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="联系方式" :label-width="formLabelWidth">
-        <el-input v-model="user.phone" auto-complete="off"></el-input>
+        <el-input v-model="user.phone"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -60,7 +60,7 @@
           alert("确认密码必须与密码一致")
         }else{
           Axios.post(Api.userSignUp(this.user.username,this.user.password,
-            this.user.power,this.user.phone ? 1 : 0),
+            this.user.phone,this.user.power ? 1 : 0),
             {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

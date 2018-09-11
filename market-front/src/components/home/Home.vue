@@ -8,6 +8,9 @@
 		<br><br>
 		<v-catalog></v-catalog>
 
+    <el-footer class="copyright-footer">
+      <div class="footer-text">Copyright : IngerJo</div>
+    </el-footer>
  	</div>
 </template>
 
@@ -39,8 +42,18 @@
 </script>
 <!-- scoped表示局部作用域 -->
 
-<style lang="scss" scoped>
+<style lang="scss">
 hr{
 	color:#c3c3c3;
 }
+  .copyright-footer{
+    background-color: #545C64;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    position: relative;
+  }
+  .foot-text{
+    margin-top: 20px;
+  }
 </style>

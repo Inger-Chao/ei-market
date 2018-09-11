@@ -69,12 +69,13 @@
       toHome(){
         this.$router.push({ path : '//'})
       },
+      /* 发布商品按钮点击事件 */
       toGoodsAdd(){
-        // if (this.$store.state.hasSign ) {
+        if (this.$store.state.hasSign ) {
           this.$router.push( { path : '/goods/add'})
-        // }else {
-        //   alert('请先登陆')
-        // }
+        }else {
+          alert('请先登陆')
+        }
       }
     }
   }

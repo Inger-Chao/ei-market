@@ -2,11 +2,15 @@ package com.inger.market.domain;/**
  * Created by IngerJo on 2018/9/10.
  */
 
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Null;
 
 /**
  * @program: market
@@ -26,13 +30,11 @@ public class Trade {
 
     private Integer goodsId;
 
-    @Max(value = 5)
-    @Min(value = 0)
-    private Integer status;
+    private Integer status = 2;
 
     public Trade() { }
 
-    public Trade(Integer salerId, Integer buyerId, Integer goodsId, @Max(value = 5) @Min(value = 0) Integer status) {
+    public Trade(Integer salerId, Integer buyerId, Integer goodsId, Integer status) {
         this.salerId = salerId;
         this.buyerId = buyerId;
         this.goodsId = goodsId;

@@ -62,7 +62,13 @@
           console.log(response)
           self.isSuccess = response.data.status
           if ( self.isSuccess === 1){
-            self.$notify({title : '登陆成功'})
+
+            const h = self.$createElement;
+            self.$notify({
+              title: '登录成功',
+              message: h('i', { style: 'color: teal'}, '已解锁用户权限')
+            });
+
             self.InitCurrentUserInfo()
 
           }else{
@@ -73,6 +79,7 @@
         })
       },
 
+      // 通过用户名初始化用户信息
       InitCurrentUserInfo(){
         console.log("我走到这里拉")
         var self = this;

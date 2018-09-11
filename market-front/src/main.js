@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 //1. 创建组件
 
 import Home from './components/home/Home.vue';
-import Content from './components/Content.vue';
+import Content from './components/goods/Content.vue';
 import GoodsList from './components/goods/GoodsList.vue';
 import Profiles from './components/profiles/Profiles.vue';
 import GoodsAddPage from  './components/goods/GoodsAddPage.vue'
@@ -60,7 +60,11 @@ const routes = [
     path:'/goods/add',
     component : GoodsAddPage
   },
-	{ path: '/content/:aid', component: Content},//动态路由
+	{
+	  name:'goods-content',
+    path: '/content/:id/:sellerId',
+    component: Content,
+  },//动态路由
   { path : '*' , redirect:'/'}
 ]
 

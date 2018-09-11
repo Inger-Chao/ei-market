@@ -1,6 +1,8 @@
 package com.inger.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +12,8 @@ import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @NamedNativeQuery(
         name = "Goods.findByUserIdInCart",
         query = "SELECT cart.user_id,cart.goods_id,goods.name,goods.price,goods.img_url,goods.status FROM cart,goods " +

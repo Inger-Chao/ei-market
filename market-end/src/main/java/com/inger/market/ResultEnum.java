@@ -11,7 +11,10 @@ public enum ResultEnum {
     GET_GOODS_INFO_LIST(1, "successfully to get goods info list"),
     GET_GOODS_TYPE_LIST(1, "successfully to get goods type list"),
     GET_ONES_CART(1, "successfully to get one's cart goods list"),
+    GET_TRADE_INFO(1,"successfully get trade info"),
+    DROP_TRADE(1,"successfully to delete trade of this goods"),
     ADD_CART(1, "successfully to add carts"),
+    ADD_TRADE(1,"successfully to add trade"),
     DROP_CART(1, "successfully to delete carts"),
     GET_USER_GOODS_LIST(1, "successfully to get one's goods"),
     GET_GOODS_DETAIL(1, "successfully to get goods detail"),
@@ -23,6 +26,8 @@ public enum ResultEnum {
     DELETE_MORE_GOODS(1, "successfully to delete more goods"),
     GET_GOODS_COUNT(1, "successfully to get goods count"),
     UPDATE_USER(1, "successfully to update user info"),
+    GET_ONES_BOUGHT_GOODS(1,"successfully to get ones bought goods"),
+    CHANGE_TRADE_STATUS(1,"successfully to change trade status"),
     USER_DUPLICATE(-1, "user duplicated"),
     USER_MISSED(-1, "user missed"),
     USER_PARAMS_ERROR(-1,"post user params not correct"),
@@ -33,7 +38,7 @@ public enum ResultEnum {
     PERMISSION_DENIED(-1, "permission denied"),
     UNKNOWN_ERROR(-1, "unknown"),
     GOODS_NOT_FOUND(-1, "goods not found"),
-    ;
+    TRADE_NOT_FOUND(-1,"trade not found"),;
     private Integer status;
     private String msg;
 

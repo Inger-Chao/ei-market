@@ -40,7 +40,7 @@
       width="30%"
       :before-close="handleClose"
       center>
-      <span><el-input v-model="charge" class="input-size"></el-input></span>
+      <span><el-input v-model="charge" type="number" class="input-size"></el-input></span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="coinDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="recharge">确 定</el-button>
@@ -56,10 +56,10 @@
 
       <el-form>
         <el-form-item label="原始密码" :label-width="formLabelWidth">
-          <el-input v-model="inputPwd" auto-complete="off" class="input-size"></el-input>
+          <el-input type="password" v-model="inputPwd" auto-complete="off" class="input-size"></el-input>
         </el-form-item>
         <el-form-item label="新密码" :label-width="formLabelWidth">
-          <el-input v-model="newPwd" auto-complete="off" class="input-size"></el-input>
+          <el-input type="password" v-model="newPwd" auto-complete="off" class="input-size"></el-input>
         </el-form-item>
       </el-form>
 
@@ -114,10 +114,13 @@
       submitUserForm(){
         var self = this
         var params = new URLSearchParams();
+        params.append('id',self.$store.state.id)
         params.append('username',self.$store.state.username)
         params.append('phone',self.userInfo.phone)
         params.append('qq',self.userInfo.qq)
         params.append('coin',self.userInfo.coin)
+        params.append('goodsNum',self.$store.state.goodsNum)
+        params.append('credit',self.$store.state.credit)
         console.log(self.userInfo.name + self.userInfo.password + self.userInfo.coin)
         axios({
           method : 'post',
@@ -160,7 +163,7 @@
       },
       /* 充值 */
       recharge(){
-        this.userInfo.coin = this.charge + this.userInfo.coin
+        this.userInfo.coin = parseInt(this.charge) + parseInt(this.userInfo.coin)
         alert('充值成功，请点击确认修改按钮')
         this.coinDialogVisible = false
       },

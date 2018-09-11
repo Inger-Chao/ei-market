@@ -8,7 +8,7 @@
           :key="item.id"
           :offset="index%4 > 0 ? 1 : 3">
 
-          <div class="goodsItem">
+          <div class="goodsItem"  @click="goContent(item.id, item.userId)">
 
             <el-card class="goods-item">
 
@@ -186,6 +186,11 @@
             self.resultMessage = '没有找到任何东西'
             console.log(error)
           })
+      },
+      goContent(goodsId,userId){
+
+        this.$router.push({ name : 'goods-content' , params : { id : goodsId ,sellerId : userId}})
+
       }
     },
     mounted() {
@@ -237,6 +242,7 @@
     clear: both
   }
 
-  .goodsItem{
+  .goods-item{
+    cursor: pointer; /*鼠标悬停样式*/
   }
 </style>
