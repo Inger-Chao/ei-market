@@ -3,7 +3,7 @@
 	<div class="home">
 
 		<v-header></v-header>
-		<h1 align="center" style="font-size: 50px;color: #333333">EI-Market</h1>
+		<h1 align="center" style="font-size: 50px;color: #333333;user-select: none;cursor:default;">EI-Market</h1>
 		<v-search-bar></v-search-bar>
 		<br><br>
 		<v-catalog></v-catalog>

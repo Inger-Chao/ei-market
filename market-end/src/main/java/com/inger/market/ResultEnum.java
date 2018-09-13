@@ -16,6 +16,8 @@ public enum ResultEnum {
     ADD_CART(1, "successfully to add carts"),
     ADD_TRADE(1,"successfully to add trade"),
     DROP_CART(1, "successfully to delete carts"),
+    ADD_GOODS_COMMENT(1, "successfully to add goods comment"),
+    GET_GOODS_COMMENTS_LIST(1,"successfully to get goods comments"),
     GET_USER_GOODS_LIST(1, "successfully to get one's goods"),
     GET_GOODS_DETAIL(1, "successfully to get goods detail"),
     GET_GOODS_BY_KEY(1, "successfully to get goods by key"),

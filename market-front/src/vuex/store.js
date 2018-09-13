@@ -40,6 +40,19 @@ var mutations = {
   },
   updatePassword(state,payload){
     state.password  = payload.password
+  },
+  userSignOut() {
+    console.log('走到vuex这里拉！')
+    state.id = '',
+      state.username = '登录 | 注册',
+      state.password = '',
+      state.phone = '',
+      state.qq = '',
+      state.createTime = '',
+      state.goodsNum = '',
+      state.coin = '',
+      state.credit = '',
+      state.hasSign = false
   }
 }
 

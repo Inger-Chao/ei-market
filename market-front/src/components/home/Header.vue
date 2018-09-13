@@ -12,7 +12,7 @@
       text-color="#fff"
       active-text-color="#ff5555">
 
-      <el-menu-item index="1">
+      <el-menu-item index="1" >
         <el-button @click="handleSignBtnClick" style="color: #ff5555" round>
          {{this.$store.state.username}}
         </el-button>
@@ -67,7 +67,7 @@
         }
       },
       toHome(){
-        this.$router.push({ path : '//'})
+        this.$router.push({ path : '/'})
       },
       /* 发布商品按钮点击事件 */
       toGoodsAdd(){

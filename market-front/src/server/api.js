@@ -87,6 +87,11 @@ const Api = {
   'dropTrade' : (goodsid) => `${root}/trade/delete/${goodsid}`,
 
   /* 提交交易 @salerid: 卖家id @buyerid：买家id @goodsid：商品id*/
-  'addTrade' : (salerid,buyerid,goodsid) => `${root}/trade/add/${salerid}/${buyerid}/${goodsid}`
+  'addTrade' : (salerid,buyerid,goodsid) => `${root}/trade/add/${salerid}/${buyerid}/${goodsid}`,
+
+  'getGoodsComments' : (goodsid) => `${root}/comments/${goodsid}`,
+
+  'addComment' : (userid,goodsid,comment) => `${root}/comments/add/${goodsid}/${userid}/${comment}`
+
 };
 export default Api;

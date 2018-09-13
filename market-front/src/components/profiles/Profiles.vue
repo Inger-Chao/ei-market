@@ -18,6 +18,9 @@
       </el-tab-pane>
     </el-tabs>
 
+    <div @click="signOut">
+      <el-tag style="float:right;user-select: none;cursor: pointer;" type="info">退出登陆</el-tag>
+    </div>
   </div>
 </template>
 
@@ -28,11 +31,12 @@
   import ShopCart from "./ShopCart";
   import Trade from "./Trade";
   import Idle from "./Idle";
+  import store from '../../vuex/store.js'
 
   export default {
 
     name: "Profiles",
-
+    store,
     components: {
       ShopCart,
       PersonalInfo,
@@ -43,7 +47,15 @@
 
     data() {
       return {}
-
+    },
+    methods : {
+      signOut(){
+        console.log("我被点击了")
+        this.$confirm('您确定要退出吗？').then(_ => {
+          this.$store.commit('userSignOut')
+          this.$router.push( { path : '/' })
+        }).catch(_ => {})
+      }
     }
   }
 </script>
