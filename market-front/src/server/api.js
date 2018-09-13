@@ -15,6 +15,12 @@ const Api = {
   /* 根据类型获取商品列表 @type: 类型 */
   'getGoodsByType': (type,page) => `${root}/goods/${type}/${page}`,
 
+  /* 获取所有商品的总个数 */
+  'getGoodsCount' : () => `${root}/goods/count/all`,
+
+  /* 获取当前类型下的商品个数 @type：类型名 */
+  'getTypeGoodsCount' : (type) => `${root}/count/${type}`,
+
   // 键入关键字从商品的名字和描述查找
   'getGoodsListByKey' : (key,page) => `${root}/search/${key}/${page}`,
 

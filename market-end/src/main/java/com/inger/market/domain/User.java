@@ -34,14 +34,14 @@ public class User {
     private Date createTime;
 
     @Column(name = "goods_num")
-    private Integer goodsNum;
+    private Integer goodsNum = 0;
 
     @Column(name = "power",updatable = false)
     private Integer power;
 
     private float coin;
 
-    private float credit;
+    private float credit = 5;
 
     public User() {
     }

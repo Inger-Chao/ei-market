@@ -45,11 +45,11 @@
 
         <el-form :model="goods">
 
-          <el-form-item label="商品名称" prop="name">
+          <el-form-item label="商品名称">
             <el-input v-model="goods.name"></el-input>
           </el-form-item>
 
-          <el-form-item label="商品价格" prop="price">
+          <el-form-item label="商品价格">
             <el-input v-model="goods.price"></el-input>
           </el-form-item>
 
@@ -98,6 +98,10 @@
       </div>
     </el-dialog>
 
+    <v-comments
+      ref="comments"
+      style=" margin-right: 10%"></v-comments>
+
   </div>
 </template>
 
@@ -107,10 +111,11 @@
   import Api from "../../server/api";
   import Axios from 'axios'
   import store from '../../vuex/store.js'
+  import Comments from  './Comments.vue'
 
 
 	export default{
-    components : { 'v-header' : Header},
+    components : { 'v-header' : Header, 'v-comments' : Comments},
     store,
 		data(){
 			return {
@@ -232,7 +237,7 @@
           if (self.$store.state.id === self.goods.userId){
             alert('不可以购买自己的商品')
           } else if (self.goods.status) {
-            if (self.$store.coin < self.goods.price){
+            if (self.$store.state.coin < self.goods.price){
               alert('余额不足，请先充值')
             } else {
 
@@ -349,6 +354,8 @@
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 5%;
+    text-decoration: none;
+    user-select: none; //用户不可选中文字
   }
 
   .goods-content-main-image{

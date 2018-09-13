@@ -21,7 +21,6 @@
     }, methods: {
       submit() {
         this.$router.push( { name:'find-key' , params:{ key : this.input_search } })
-        alert("click " + this.input_search)
       }
     }
   }

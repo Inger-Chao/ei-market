@@ -35,6 +35,12 @@ public class GoodsController {
         return ResultUtil.success(ResultEnum.GET_GOODS_INFO_LIST, goods.getContent());
     }
 
+    @GetMapping(value = "/goods/count/all")
+    public Result<Long> getGoodsCount(){
+        long count = goodsRepository.count();
+        return ResultUtil.success(ResultEnum.GET_GOODS_COUNT,count);
+    }
+
 //    通过TypeId在Goods表中查询当前分类下的商品数量
     @GetMapping(value = "/count/{type}")
     public Result<Integer> getGoodsCountByType(@PathVariable("type") String type){

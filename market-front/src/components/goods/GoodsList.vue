@@ -36,11 +36,12 @@
 
     <el-pagination
       @current-change="handleCurrentChange"
+      style="margin-top: 15px"
       align="center"
       background
       layout="prev, pager, next"
       :current-page="currentPage"
-      :total="1000">
+      :total="total">
     </el-pagination>
 
   </div>
@@ -56,6 +57,7 @@
         goodsArray : [],
         //当前 GoodsList 依靠什么查询 0：为all 1：type 2：key
         selectBy : 0 ,
+        total : 100,
         typeName : 'all',
         key : 'default',
         currentPage : 1,
@@ -94,6 +96,39 @@
         }
       },
 
+      InitPageTotal(){
+        var self = this
+        Axios.get(Api.getGoodsCount(),{
+          headers: {
+            'Content-Type': 'application/x-www-userSignIn-urlencoded',
+            'X-Requested-With':'XMLHttpRequest'
+          }
+        })
+          .then(function (response) {
+            console.log(response)
+            self.total = (response.data.data / 12) * 10
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      },
+
+      InitTypePageTotal(typeName){
+        var self = this
+        Axios.get(Api.getTypeGoodsCount(typeName,{
+          headers: {
+            'Content-Type': 'application/x-www-userSignIn-urlencoded',
+            'X-Requested-With':'XMLHttpRequest'
+          }
+        }))
+          .then(function (response) {
+          console.log(response)
+          self.total =(response.data.data / 12 ) * 10
+        })
+          .catch(function (error) {
+            console.log(error)
+          })
+      },
 
       getParams() {
         console.log("getParams()被调用了")
@@ -117,8 +152,11 @@
       setGoodsList(typeName) {
         var self = this;
         if (typeName !== 'all') {
+          self.InitTypePageTotal(typeName)
           self.getGoodsListByType(typeName)
+
         } else {
+          self.InitPageTotal()
           self.InitGoodsList()
         }
       },
@@ -157,7 +195,6 @@
           }
         })
           .then(function (response) {
-            self.goodsArray = []
             self.goodsArray = response.data.data
             console.log(response)
           })
@@ -170,6 +207,8 @@
       getGoodsListByType(typeName){
         var self = this;
         self.selectBy = 1
+        self.currentPage = 1
+        self.page = 0
         Axios.get(Api.getGoodsByType(typeName,self.page),{
           headers: {
             'Content-Type': 'application/x-www-userSignIn-urlencoded',

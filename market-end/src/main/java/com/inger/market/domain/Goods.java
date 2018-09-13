@@ -39,11 +39,10 @@ public class Goods {
     @Column(name = "price")
     private float price; //价格
 
-    @JsonIgnore
     @Column(name = "real_price")
     private float realPrice; //原价
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", updatable = false)
     private String createTime;
 
     @Column(name = "end_time", columnDefinition = "Date")
@@ -63,7 +62,7 @@ public class Goods {
     private String imgUrl;
 
     //上架 or 下架
-    private Integer status;
+    private Integer status = 1;
 
     public Goods() {
     }
@@ -119,14 +118,6 @@ public class Goods {
 
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
-    }
-
-    public float getRealPrice() {
-        return realPrice;
-    }
-
-    public void setRealPrice(float realPrice) {
-        this.realPrice = realPrice;
     }
 
     public String getName() {

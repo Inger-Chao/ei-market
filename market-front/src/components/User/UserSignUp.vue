@@ -59,8 +59,8 @@
         }else if (this.user.confirm !== this.user.password){
           alert("确认密码必须与密码一致")
         }else{
-          Axios.post(Api.userSignUp(this.user.username,this.user.password,
-            this.user.phone,this.user.power ? 1 : 0),
+          Axios.post(Api.userSignUp(self.user.username,self.user.password,self.user.power ? 1 : 0,
+            self.user.phone),
             {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
